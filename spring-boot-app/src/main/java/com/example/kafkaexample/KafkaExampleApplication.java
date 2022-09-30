@@ -8,12 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 @SpringBootApplication
 @EnableKafka
 public class KafkaExampleApplication {
 
 	@Autowired
-	KafkaTemplate<String, String> kafkaTemplate;
+	KafkaTemplate<String, Object> kafkaTemplate;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaExampleApplication.class, args);
@@ -25,7 +29,17 @@ public class KafkaExampleApplication {
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-//				kafkaTemplate.send("users", "hi from java spring");
+				TimerTask timerTask = new TimerTask() {
+					@Override
+					public void run() {
+
+						kafkaTemplate.send("users", new Message( new Date(), "hi from java spring"));
+					}
+				};
+
+				Timer timer = new Timer();
+				timer.schedule(timerTask, 0, 5000);
+
 			}
 		};
 	}
