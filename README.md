@@ -10,7 +10,7 @@
 
 [Download](https://www.apache.org/dyn/closer.cgi?path=/kafka/3.2.1/kafka_2.13-3.2.1.tgz) the latest Kafka release and extract it:
 
-```text
+```shell
 $ tar -xzf kafka_2.13-3.2.1.tgz
 $ cd kafka_2.13-3.2.1
 ```
@@ -21,20 +21,20 @@ $ cd kafka_2.13-3.2.1
 
 The first run zookeeper :
 
-```text
+```shell
 $ bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
 Open another terminal session and run kafka:
 
-```text
+```shell
 $ # Start the Kafka broker service
 $ bin/kafka-server-start.sh config/server.properties
 ```
 
 * **STEP 3: CREATE A TOPIC TO STORE YOUR EVENTS**
 
-```text
+```shell
 $ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
 
 $ bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
@@ -44,7 +44,7 @@ Topic:quickstart-events  PartitionCount:1    ReplicationFactor:1 Configs:
 
 * **STEP 4: WRITE SOME EVENTS INTO THE TOPIC**
 
-```text
+```shell
 $ bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
 This is my first event
 This is my second event
@@ -52,7 +52,7 @@ This is my second event
 
 * **STEP 5: READ THE EVENTS**
 
-```text
+```shell
 $ bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
 This is my first event
 This is my second event
